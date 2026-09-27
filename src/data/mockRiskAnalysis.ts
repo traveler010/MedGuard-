@@ -1,0 +1,153 @@
+// MediQX Mock Risk Analysis Data
+import { RiskAnalysis } from '@/types';
+
+export const MOCK_RISK_ANALYSES: Record<string, RiskAnalysis> = {
+  'cons-101': {
+    id: 'risk-ana-101',
+    consultationId: 'cons-101',
+    patientId: 'pat-1',
+    patientName: 'Raj Kumar',
+    patientAge: 68,
+    proposedMedication: {
+      name: 'Pain Medication X',
+      dosage: '10 mg oral tablet',
+      frequency: 'Every 8 hours (Q8H)',
+      duration: '14 days',
+      indication: 'Acute Knee Osteoarthritis Flare',
+    },
+    overallRisk: 'HIGH',
+    riskScore: 94,
+    riskSummary: 'Potential high-hazard medication interaction detected with active Warfarin therapy.',
+    breakdown: {
+      drugInteraction: {
+        status: 'HIGH',
+        badge: 'High Hazard Collision',
+        title: 'Drug-Drug Interaction Analysis',
+        shortExplanation: 'Severe kinetic collision: Pain Medication X suppresses platelet COX-1 while active Warfarin inhibits liver coagulation factors.',
+        detailedMechanism: 'Pain Medication X strongly suppresses cyclooxygenase-1 (COX-1), preventing platelets from clustering together to stop bleeding. Simultaneously, Warfarin blocks vitamin K-dependent clotting factors (II, VII, IX, X). Together, this synergy magnifies upper gastrointestinal bleeding risk by 3.8-fold.',
+        patientImpact: [
+          'Directly interferes with active Warfarin anticoagulation for stroke prevention.',
+          'Increases gastric mucosal erosion and upper gastrointestinal hemorrhage risk.',
+          'Bleeding events can occur silently before hemoglobin levels drop visibly.',
+        ],
+        guideline: 'American College of Cardiology (ACC) / CHEST Consensus Statement: Concomitant systemic NSAIDs and oral anticoagulants carry Grade 1A hazard warnings.',
+        safeRecommendation: 'Switch to non-ulcerogenic analgesia (such as Acetaminophen up to 2g/day) or topical NSAID with minimal systemic absorption.',
+      },
+      ageRisk: {
+        status: 'HIGH',
+        badge: 'Geriatric Vulnerability (Beers Criteria)',
+        title: 'Age-Related Pharmacokinetic Risk',
+        shortExplanation: 'At 68 years of age, physiologic renal reserve declines, reducing drug clearance rates by 30-40%.',
+        detailedMechanism: 'Aging kidneys filter active NSAID metabolites at a significantly reduced rate. This prolongs the medication circulating half-life, causing higher peak blood concentrations than would occur in younger adults.',
+        patientImpact: [
+          'Patient age qualifies under AGS Beers Criteria 2023 for heightened NSAID toxicity.',
+          'Decreased glomerular filtration rate (eGFR) impairs clearance of active drug compounds.',
+          'High propensity for acute fluid retention, blood pressure destabilization, and diminished kidney perfusion.',
+        ],
+        guideline: 'American Geriatrics Society (AGS) Beers Criteria 2023: Avoid chronic systemic NSAIDs in seniors >= 65 due to accelerated risk of peptic ulcer and acute kidney injury.',
+        safeRecommendation: 'If pain relief is necessary, prioritize non-systemic topical therapies or low-dose paracetamol with close hydration monitoring.',
+      },
+      durationRisk: {
+        status: 'MODERATE',
+        badge: 'Cumulative Exposure Threshold',
+        title: 'Duration & Exposure Curve',
+        shortExplanation: '14 days of continuous administration exceeds the safe 3-5 day acute geriatric threshold.',
+        detailedMechanism: 'Renal prostaglandin inhibition compounds steadily with each additional consecutive day of exposure. After day 5, the risk curve for acute kidney injury (AKI) rises exponentially in patients over 65.',
+        patientImpact: [
+          '14 consecutive days triggers persistent renal arteriolar vasoconstriction.',
+          'Cumulative gastric mucosal injury increases progressively with every 24 hours of therapy.',
+          'Exceeds recommended 72-hour emergency analgesia windows for polypharmacy patients.',
+        ],
+        guideline: 'KDIGO Clinical Practice Guideline for Acute Kidney Injury: Systemic NSAIDs in elderly patients should be limited to the lowest effective dose for no more than 3 consecutive days.',
+        safeRecommendation: 'Restrict duration to a 3-day acute rescue regimen, or transition immediately to PRN (as-needed) dosing.',
+      },
+      sideEffectLoad: {
+        status: 'HIGH',
+        badge: 'Combined Organ Toxicity',
+        title: 'Anticipated Side-Effect Burden',
+        shortExplanation: 'High risk of acute gastrointestinal distress, renal impairment, and blood pressure destabilization.',
+        detailedMechanism: 'Simultaneous inhibition of COX-2 in the renal vasculature blunts sodium excretion, which directly counteracts patient antihypertensive medication (Lisinopril). This commonly precipitates sudden fluid retention and acute blood pressure surges.',
+        patientImpact: [
+          'High risk of fluid retention precipitating congestive heart failure symptoms.',
+          'Antagonizes ACE inhibitor efficacy, potentially causing resistant hypertension.',
+          'Dyspepsia, epigastric distress, and microscopic GI blood loss.',
+        ],
+        guideline: 'American Heart Association (AHA) Scientific Statement: NSAIDs may attenuate the blood pressure lowering effect of ACE inhibitors and increase hospitalizations for heart failure.',
+        safeRecommendation: 'Avoid systemic oral formulations; select topical patches or acetaminophen.',
+      },
+    },
+    whyFlagged: {
+      coreWarning: 'This combination may significantly increase gastrointestinal bleeding and kidney injury risk.',
+      clinicalExplanation: 'Raj Kumar is currently taking Warfarin for stroke prevention. Adding Pain Medication X causes a double-hit on the body clotting mechanism while stressing the kidneys.',
+      contributingFactors: [
+        {
+          factor: 'Active Warfarin (4 mg)',
+          impact: 'Thins the blood; combining with NSAID causes 3.8x higher risk of bleeding ulcers.',
+          hazardScore: 45,
+        },
+        {
+          factor: 'Patient Age (68 years)',
+          impact: 'Natural kidney filtering slows with age, making drug elimination 30-40% slower.',
+          hazardScore: 25,
+        },
+        {
+          factor: 'Proposed Dose & Duration',
+          impact: '10mg TID for 14 days exceeds the safe geriatric acute limit of 3-5 days.',
+          hazardScore: 24,
+        },
+      ],
+    },
+    recommendedActions: [
+      {
+        type: 'ALTERNATIVE',
+        title: 'Switch to Safe Alternative (Recommended)',
+        description: 'Replace Pain Medication X with Acetaminophen 500mg or Topical Gel with negligible systemic bleeding risk.',
+      },
+      {
+        type: 'ADJUST',
+        title: 'Adjust Regimen & Co-Prescribe Protection',
+        description: 'Reduce duration to 3 days PRN and co-prescribe Omeprazole 20mg for gastric mucosal defense.',
+      },
+      {
+        type: 'OVERRIDE',
+        title: 'Proceed with Documented Override',
+        description: 'Require formal clinical justification and hospital EHR monitoring agreement.',
+      },
+    ],
+    alternatives: [
+      {
+        id: 'alt-1',
+        name: 'Acetaminophen (Tylenol)',
+        genericName: 'Paracetamol',
+        dosage: '500 mg oral tablet',
+        frequency: 'Every 6-8 hours PRN (Max 2,000 mg/day)',
+        riskScore: 18,
+        riskLevel: 'LOW',
+        clinicalAdvantage: 'Zero platelet suppression. Safe with Warfarin when kept under 2,000 mg daily.',
+        isRecommended: true,
+      },
+      {
+        id: 'alt-2',
+        name: 'Topical Diclofenac Gel (Voltaren 1%)',
+        genericName: 'Diclofenac Sodium Topical',
+        dosage: '4 g applied to affected knee',
+        frequency: 'Twice daily (Morning & Evening)',
+        riskScore: 24,
+        riskLevel: 'LOW',
+        clinicalAdvantage: 'Local joint anti-inflammatory action with less than 6% systemic absorption.',
+        isRecommended: false,
+      },
+      {
+        id: 'alt-3',
+        name: 'Celecoxib (Low Dose)',
+        genericName: 'Celecoxib',
+        dosage: '100 mg oral capsule',
+        frequency: 'Once daily with food',
+        riskScore: 42,
+        riskLevel: 'MODERATE',
+        clinicalAdvantage: 'Selective COX-2 inhibitor with lower GI toxicity, but still requires INR monitoring with Warfarin.',
+        isRecommended: false,
+      },
+    ],
+  },
+};

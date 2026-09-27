@@ -1,0 +1,68 @@
+// MediQX Mock Prescriptions Data
+import { Prescription } from '@/types';
+
+export const MOCK_PRESCRIPTIONS: Prescription[] = [
+  {
+    id: 'rx-2026-001',
+    patientId: 'pat-1',
+    patientName: 'Raj Kumar',
+    patientAge: 68,
+    doctorName: 'Dr. Sharma, MD',
+    date: '2026-09-26',
+    status: 'PENDING_REVIEW',
+    medications: [
+      {
+        id: 'rxm-1',
+        name: 'Warfarin Sodium',
+        dosage: '4 mg',
+        frequency: 'Once Daily (08:00 AM)',
+        duration: 'Ongoing (Chronic)',
+        instructions: 'Take in morning with full glass of water. Maintain routine monthly INR monitoring.',
+        riskLevel: 'MODERATE',
+        isProposed: false,
+        status: 'Active',
+      },
+      {
+        id: 'rxm-2',
+        name: 'Metformin HCl',
+        dosage: '500 mg',
+        frequency: 'Twice Daily (BID)',
+        duration: 'Ongoing (Chronic)',
+        instructions: 'Take with morning and evening meals.',
+        riskLevel: 'LOW',
+        isProposed: false,
+        status: 'Active',
+      },
+      {
+        id: 'rxm-3',
+        name: 'Lisinopril',
+        dosage: '10 mg',
+        frequency: 'Once Daily (Evening)',
+        duration: 'Ongoing (Chronic)',
+        instructions: 'Take at 08:00 PM. Monitor resting blood pressure.',
+        riskLevel: 'LOW',
+        isProposed: false,
+        status: 'Active',
+      },
+      {
+        id: 'rxm-4',
+        name: 'Acetaminophen (Tylenol)',
+        dosage: '500 mg',
+        frequency: 'q6h PRN (As Needed - Max 2,000 mg/day)',
+        duration: '5 Days (Short-term flare)',
+        instructions: 'Take as needed for severe right knee osteoarthritis pain.',
+        riskLevel: 'LOW',
+        isProposed: true,
+        status: 'Proposed Substitution',
+      },
+    ],
+    overallRisk: 'LOW',
+    riskFactors: [
+      'Patient age: 68 years (Geriatric clearance protocol)',
+      'Baseline oral anticoagulation (Warfarin 4mg)',
+      'Substituted non-ulcerogenic agent eliminates bleeding hazard',
+    ],
+    doctorDecision: 'APPROVE',
+    decisionNotes: 'Doctor approved safe substitute (Acetaminophen 500mg) in place of high-risk NSAID. Bleeding risk eliminated.',
+  },
+];

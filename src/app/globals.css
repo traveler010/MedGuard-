@@ -1,26 +1,192 @@
 @import "tailwindcss";
 
+@theme {
+  --color-slate-750: #253347;
+  --color-slate-850: #141f32;
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f8fafc;
+  --foreground: #0f172a;
+  --card-bg: #ffffff;
+  --card-border: #e2e8f0;
+  --primary-navy: #0a1628;
+  --teal-accent: #0d9488;
+  --teal-light: #f0fdfa;
+  --muted-text: #64748b;
+  --subtle-bg: #f1f5f9;
+  
+  /* Cohesive Clinical Risk Palette (Light Mode) */
+  --risk-high-text: #be123c;
+  --risk-high-bg: #fff1f2;
+  --risk-high-border: #fda4af;
+  
+  --risk-mod-text: #b45309;
+  --risk-mod-bg: #fffbeb;
+  --risk-mod-border: #fcd34d;
+  
+  --risk-low-text: #047857;
+  --risk-low-bg: #ecfdf5;
+  --risk-low-border: #6ee7b7;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.dark {
+  --background: #090e17; /* Deep HealthTech charcoal navy */
+  --foreground: #f8fafc;
+  --card-bg: #0f172a;    /* Slightly lighter dark card */
+  --card-border: #1e293b;
+  --primary-navy: #090e17;
+  --teal-accent: #14b8a6;
+  --teal-light: #042f2e;
+  --muted-text: #94a3b8;
+  --subtle-bg: #1e293b;
+
+  /* Cohesive Clinical Risk Palette (Dark Mode - readable & non-neon) */
+  --risk-high-text: #fda4af;
+  --risk-high-bg: rgba(190, 18, 60, 0.2);
+  --risk-high-border: rgba(244, 63, 94, 0.4);
+
+  --risk-mod-text: #fde047;
+  --risk-mod-bg: rgba(180, 83, 9, 0.2);
+  --risk-mod-border: rgba(245, 158, 11, 0.4);
+
+  --risk-low-text: #6ee7b7;
+  --risk-low-bg: rgba(4, 120, 87, 0.2);
+  --risk-low-border: rgba(16, 185, 129, 0.4);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Smooth Theme Switching Transition */
+html.theme-transition,
+html.theme-transition *,
+html.theme-transition *::before,
+html.theme-transition *::after {
+  transition: background-color 0.25s ease, border-color 0.25s ease, color 0.2s ease, box-shadow 0.2s ease !important;
+  transition-delay: 0s !important;
+}
+
+html {
+  scroll-behavior: smooth;
+  text-size-adjust: 100%;
+  overflow-x: hidden;
+}
+
+button, a, input, select, textarea {
+  touch-action: manipulation;
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* Universal Keyboard Focus State for Accessibility */
+:focus-visible {
+  outline: 2px solid #0d9488 !important;
+  outline-offset: 2px !important;
+  border-radius: 8px;
+}
+
+/* Micro-Interaction Classes */
+.btn-press {
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-press:active {
+  transform: scale(0.97);
+}
+
+.card-lift {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
+}
+.card-lift:hover {
+  transform: translateY(-2px);
+}
+
+/* Smooth Pulse Animations */
+@keyframes subtle-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.02);
+  }
+}
+
+.animate-subtle-pulse {
+  animation: subtle-pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Skeleton Loading Shimmer */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton-shimmer {
+  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.dark .skeleton-shimmer {
+  background: linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%);
+  background-size: 200% 100%;
+}
+
+/* Custom Scrollbars for Dashboards, Drawers & Tables */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+.dark ::-webkit-scrollbar-track {
+  background: #090e17;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #334155;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+/* Responsive Table Scroll Shadows & Styling */
+.table-responsive-container {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Print Styles for Clinical Reports & Patient Wallet Cards */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+  body {
+    background: white !important;
+    color: black !important;
+  }
 }
