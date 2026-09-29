@@ -1,4 +1,4 @@
-// MediQX Mock Notification Data
+// MedGuard Mock Notification Data
 import { Notification } from '@/types';
 
 export const MOCK_NOTIFICATIONS: Notification[] = [

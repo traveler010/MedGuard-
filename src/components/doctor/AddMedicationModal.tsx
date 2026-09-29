@@ -82,7 +82,7 @@ export function AddMedicationModal({
 
     return {
       level: 'NEUTRAL',
-      message: 'MediQX AI will automatically run pharmacokinetic collision scans once added.',
+      message: 'MedGuard AI will automatically run pharmacokinetic collision scans once added.',
     };
   };
 
@@ -221,7 +221,7 @@ export function AddMedicationModal({
                       : safetyResult.level === 'HIGH_HAZARD'
                       ? 'CRITICAL POLYPHARMACY CONTRAINDICATION'
                       : safetyResult.level === 'SAFE'
-                      ? 'MEDIQX VERIFIED SAFE'
+                      ? 'MEDGUARD VERIFIED SAFE'
                       : 'PRE-SCREENING ACTIVE'}
                   </span>
                   <p className="mt-0.5 leading-relaxed">{safetyResult.message}</p>

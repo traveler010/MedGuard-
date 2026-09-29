@@ -15,6 +15,7 @@ from app.routers.reports import router as reports_router
 from app.routers.medicine_analyzer import router as medicine_analyzer_router
 from app.routers.dashboard import router as dashboard_router
 from app.routers.consultations import router as consultations_router
+from app.routers.patients import router as patients_router
 from app.utils.logger import setup_logger
 
 logger = setup_logger("medguard.main")
@@ -74,6 +75,7 @@ app.include_router(reports_router)
 app.include_router(medicine_analyzer_router)
 app.include_router(dashboard_router)
 app.include_router(consultations_router)
+app.include_router(patients_router)
 
 if __name__ == "__main__":
     import uvicorn

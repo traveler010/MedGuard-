@@ -34,7 +34,7 @@ export function LandingNavbar({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           
-          {/* MediQX Logo */}
+          {/* MedGuard Logo */}
           <a href="#home" className="flex items-center gap-3 group">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-teal-700 via-teal-600 to-cyan-500 flex items-center justify-center text-white shadow-md shadow-teal-700/20 ring-1 ring-white/20 transition-transform group-hover:scale-105">
               <ShieldAlert className="w-5 h-5" />
@@ -42,7 +42,7 @@ export function LandingNavbar({
             <div>
               <div className="flex items-center gap-2">
                 <span className="font-extrabold text-xl tracking-tight text-slate-900 dark:text-white" suppressHydrationWarning>
-                  MEDI<span className="text-teal-600 dark:text-teal-400">QX</span>
+                  Med<span className="text-teal-600 dark:text-teal-400">Guard</span>
                 </span>
                 <span className="inline-flex items-center gap-1 text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-teal-50 dark:bg-teal-950/60 text-teal-700 dark:text-teal-300 border border-teal-200/80 dark:border-teal-800/60">
                   <Sparkles className="w-3 h-3 text-teal-600 dark:text-teal-400" /> Clinical AI

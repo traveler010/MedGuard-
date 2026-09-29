@@ -23,7 +23,7 @@ export function CtaSection({
         
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-xs text-teal-300 text-xs font-semibold border border-white/10">
           <Sparkles className="w-3.5 h-3.5 text-teal-300" />
-          <span>Experience MediQX Interactive Prototype</span>
+          <span>Experience MedGuard Interactive Prototype</span>
         </div>
 
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white max-w-3xl mx-auto leading-tight">

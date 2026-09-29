@@ -16,7 +16,7 @@ export function SafetyStatement() {
         </h3>
 
         <blockquote className="text-sm sm:text-base font-semibold text-slate-800 dark:text-slate-200 leading-relaxed max-w-2xl mx-auto">
-          "MediQX is designed as a clinical decision-support tool and does not replace professional medical judgment."
+          "MedGuard is designed as a clinical decision-support tool and does not replace professional medical judgment."
         </blockquote>
 
         <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 max-w-xl mx-auto leading-normal">

@@ -36,7 +36,7 @@ export function DoctorSection({ onEnterDoctorDashboard }: DoctorSectionProps) {
             </h2>
 
             <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed">
-              Hospitalists, geriatricians, and primary care physicians evaluate patients taking dozens of medications in 15-minute consultations. MediQX synthesizes fragmented medical records into instantaneous clinical clarity.
+              Hospitalists, geriatricians, and primary care physicians evaluate patients taking dozens of medications in 15-minute consultations. MedGuard synthesizes fragmented medical records into instantaneous clinical clarity.
             </p>
 
             <div className="space-y-3 pt-2 text-sm text-slate-700 dark:text-slate-300">

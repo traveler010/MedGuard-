@@ -28,7 +28,7 @@ export function LoginModal({
   onLoginAsCaregiver,
 }: LoginModalProps) {
   const router = useRouter();
-  const [email, setEmail] = useState('sarah.almansoor@mediqx.clinic');
+  const [email, setEmail] = useState('sarah.almansoor@medguard.clinic');
   const [password, setPassword] = useState('••••••••••••');
 
   if (!isOpen) return null;
@@ -55,7 +55,7 @@ export function LoginModal({
             </div>
             <div>
               <h3 className="text-sm font-bold text-slate-900 dark:text-white">
-                Sign In to MediQX
+                Sign In to MedGuard
               </h3>
               <p className="text-[11px] text-slate-500 dark:text-slate-400">
                 Secure HealthTech Portal Access

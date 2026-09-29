@@ -35,7 +35,7 @@ export function CaregiverAiAssistant({ patient }: CaregiverAiAssistantProps) {
     {
       id: '1',
       sender: 'ai',
-      text: `Hello! I am your MediQX Care Assistant. I have Eleanor's complete doctor-verified medication schedule and safety notes in front of me. How can I help you support her today?`,
+      text: `Hello! I am your MedGuard Care Assistant. I have Eleanor's complete doctor-verified medication schedule and safety notes in front of me. How can I help you support her today?`,
       timestamp: 'Just now',
     },
   ]);
@@ -97,7 +97,7 @@ export function CaregiverAiAssistant({ patient }: CaregiverAiAssistantProps) {
           </div>
           <div>
             <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              Ask MediQX Care AI
+              Ask MedGuard Care AI
               <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-teal-50 dark:bg-teal-950/40 text-teal-700 dark:text-teal-300 border border-teal-200 dark:border-teal-800">
                 Caregiver Helper
               </span>
@@ -167,7 +167,7 @@ export function CaregiverAiAssistant({ patient }: CaregiverAiAssistantProps) {
             <span className="w-2 h-2 rounded-full bg-teal-500 animate-bounce" />
             <span className="w-2 h-2 rounded-full bg-teal-500 animate-bounce [animation-delay:0.2s]" />
             <span className="w-2 h-2 rounded-full bg-teal-500 animate-bounce [animation-delay:0.4s]" />
-            <span>MediQX AI checking clinical pharmacology...</span>
+            <span>MedGuard AI checking clinical pharmacology...</span>
           </div>
         )}
       </div>

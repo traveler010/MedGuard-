@@ -14,6 +14,7 @@ import {
   updateDoctorConsultationResponse,
   updateAppointmentStatus,
   DOCTOR_PATIENT_DIRECTORY,
+  DoctorPatientDirectoryItem,
   DoctorAppointment,
   DoctorConsultationItem,
   DoctorMedicalReportItem,
@@ -83,7 +84,8 @@ export default function PatientWorkspacePage() {
   }, [searchParams]);
 
   const workspaceData = getPatientWorkspace(patientId);
-  const patient = workspaceData.patient;
+  const [currentPatient, setCurrentPatient] = useState<DoctorPatientDirectoryItem>(() => workspaceData.patient);
+  const patient = currentPatient;
 
   // Global & header layout states
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
@@ -143,6 +145,45 @@ export default function PatientWorkspacePage() {
     refreshConsultations();
     refreshAppointments();
     refreshMedicationReports();
+
+    // Also attempt to fetch latest live patient details and medications from backend
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
+    fetch(`${apiUrl}/doctor/patients/${patientId}`)
+      .then((res) => (res.ok ? res.json() : null))
+      .then((serverData) => {
+        if (serverData && serverData.id) {
+          setCurrentPatient((prev: DoctorPatientDirectoryItem) => ({
+            ...prev,
+            ...serverData,
+            primaryCondition:
+              serverData.primaryCondition ||
+              serverData.primary_condition ||
+              prev.primaryCondition,
+            medications: serverData.medications || prev.medications,
+            primaryMedicine:
+              serverData.primaryMedicine ||
+              serverData.primary_medicine ||
+              prev.primaryMedicine,
+          }));
+          if (Array.isArray(serverData.medications) && serverData.medications.length > 0) {
+            setLiveMedicines((prev) => {
+              if (prev.length > 0 && prev[0].name !== "General Health / Maintenance") {
+                return prev;
+              }
+              return serverData.medications.map((m: string, idx: number) => ({
+                id: `med-${serverData.id}-${idx + 1}`,
+                name: m,
+                dose: "Standard dose",
+                frequency: "Daily",
+                scheduledTime: "08:00 AM",
+                status: "○ Upcoming",
+                statusType: "upcoming",
+              }));
+            });
+          }
+        }
+      })
+      .catch(() => {});
 
     const handleDataUpdate = () => {
       refreshLiveMedicines();

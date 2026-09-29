@@ -1,4 +1,4 @@
-// MediQX usePatient Hook
+// MedGuard usePatient Hook
 // Fetches and manages a single patient by ID.
 
 import { useState, useEffect, useCallback } from 'react';

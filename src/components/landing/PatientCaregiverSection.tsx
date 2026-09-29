@@ -156,7 +156,7 @@ export function PatientCaregiverSection({
             </h2>
 
             <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed">
-              Medical jargon causes medication non-adherence. MediQX translates complex pharmacology into plain-English schedules, visual pill shape recognition, and timely caregiver reminders.
+              Medical jargon causes medication non-adherence. MedGuard translates complex pharmacology into plain-English schedules, visual pill shape recognition, and timely caregiver reminders.
             </p>
 
             <div className="space-y-3 pt-2 text-sm text-slate-700 dark:text-slate-300">

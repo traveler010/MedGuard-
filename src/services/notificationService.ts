@@ -1,4 +1,4 @@
-// MediQX Notification Service
+// MedGuard Notification Service
 // Provides notifications for doctors and patients/caregivers with real-time read/unread management.
 // Mirrors FastAPI endpoints: GET /api/v1/notifications, POST /api/v1/notifications/{id}/read
 

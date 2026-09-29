@@ -1,4 +1,4 @@
-// MediQX API Client Abstraction
+// MedGuard API Client Abstraction
 // Handles HTTP requests to the backend with seamless mock fallback.
 // In production or with a running FastAPI backend, set NEXT_PUBLIC_API_URL (e.g. http://localhost:8000/api/v1).
 

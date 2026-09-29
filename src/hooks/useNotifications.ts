@@ -1,4 +1,4 @@
-// MediQX useNotifications Hook
+// MedGuard useNotifications Hook
 // Manages real-time alerts and notices for Doctor and Patient workflows.
 
 import { useState, useEffect, useCallback } from 'react';

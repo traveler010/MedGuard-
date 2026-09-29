@@ -182,7 +182,7 @@ export function RiskScoreHero({
               </span>
 
               <span className="text-xs font-mono text-slate-300/80 bg-white/10 px-3 py-1 rounded-full backdrop-blur-xs">
-                Clinical Safety Engine: MediQX v2.4
+                Clinical Safety Engine: MedGuard v2.4
               </span>
             </div>
 

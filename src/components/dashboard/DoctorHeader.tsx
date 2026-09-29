@@ -142,7 +142,7 @@ export function DoctorHeader({
                 <div className="absolute right-0 mt-2 w-56 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl p-2 z-50 text-xs animate-in fade-in zoom-in-95">
                   <div className="p-2 border-b border-slate-100 dark:border-slate-800">
                     <div className="font-bold text-slate-900 dark:text-white">Dr. Sharma, MD</div>
-                    <div className="text-[10px] text-slate-500 dark:text-slate-400">sarah.sharma@mediqx.clinic</div>
+                    <div className="text-[10px] text-slate-500 dark:text-slate-400">sarah.sharma@medguard.clinic</div>
                     <div className="text-[10px] font-mono text-teal-600 dark:text-teal-400 mt-0.5">NPI: 1849204192</div>
                   </div>
                   <div className="py-1">

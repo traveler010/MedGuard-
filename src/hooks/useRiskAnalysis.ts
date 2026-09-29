@@ -1,4 +1,4 @@
-// MediQX useRiskAnalysis Hook
+// MedGuard useRiskAnalysis Hook
 // Consumes riskService to power the flagship Risk Analysis screen.
 
 import { useState, useEffect, useCallback } from 'react';

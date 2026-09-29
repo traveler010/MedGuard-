@@ -104,7 +104,7 @@ export function ContinueReviewModal({
                 className="mt-0.5 rounded border-slate-300 dark:border-slate-700 text-amber-600 focus:ring-amber-500"
               />
               <span>
-                I acknowledge the bleeding and renal hazard flagged by MediQX and confirm that gastro-protective co-therapy has been ordered.
+                I acknowledge the bleeding and renal hazard flagged by MedGuard and confirm that gastro-protective co-therapy has been ordered.
               </span>
             </label>
 

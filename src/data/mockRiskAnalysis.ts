@@ -1,4 +1,4 @@
-// MediQX Mock Risk Analysis Data
+// MedGuard Mock Risk Analysis Data
 import { RiskAnalysis } from '@/types';
 
 export const MOCK_RISK_ANALYSES: Record<string, RiskAnalysis> = {

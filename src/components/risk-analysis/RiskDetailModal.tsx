@@ -191,7 +191,7 @@ export function RiskDetailModal({
           {/* Recommended Action */}
           <div className="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-800/60 text-emerald-950 dark:text-emerald-100">
             <div className="flex items-center gap-2 mb-1 text-emerald-800 dark:text-emerald-300 font-bold text-xs uppercase tracking-wider">
-              <CheckCircle2 className="w-4 h-4" /> MediQX Recommended Safety Strategy
+              <CheckCircle2 className="w-4 h-4" /> MedGuard Recommended Safety Strategy
             </div>
             <p className="text-xs text-emerald-900 dark:text-emerald-200 leading-relaxed">
               {activeData.safeRecommendation}
@@ -202,7 +202,7 @@ export function RiskDetailModal({
         {/* Footer */}
         <div className="p-4 bg-slate-50 dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
           <span className="text-xs text-slate-400 dark:text-slate-500 font-medium">
-            MediQX Clinical Knowledge Engine v2.4
+            MedGuard Clinical Knowledge Engine v2.4
           </span>
           <button
             onClick={onClose}

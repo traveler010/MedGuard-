@@ -41,7 +41,7 @@ function LoginFormContent() {
   // Form input state
   const [email, setEmail] = useState(
     initialRole === 'doctor'
-      ? 'sarah.almansoor@mediqx.clinic'
+      ? 'sarah.almansoor@medguard.clinic'
       : 'david.vance@caregiver.org'
   );
   const [password, setPassword] = useState(
@@ -65,7 +65,7 @@ function LoginFormContent() {
   // Sync default demo credentials when switching role
   useEffect(() => {
     if (selectedRole === 'doctor') {
-      setEmail('sarah.almansoor@mediqx.clinic');
+      setEmail('sarah.almansoor@medguard.clinic');
       setPassword('ClinicalDoctor2026!');
     } else {
       setEmail('david.vance@caregiver.org');
@@ -232,7 +232,7 @@ function LoginFormContent() {
 
         {/* Footer Note */}
         <div className="relative z-10 text-[11px] text-slate-400 pt-4 border-t border-white/10 flex items-center justify-between">
-          <span>MediQX AI System v2026</span>
+          <span>MedGuard AI System v2026</span>
           <span className="flex items-center gap-1">
             <ShieldCheck className="w-3.5 h-3.5 text-teal-400" />
             Healthcare Portal Session
@@ -250,7 +250,7 @@ function LoginFormContent() {
           {/* Welcome Text */}
           <div>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-              Sign In to MediQX
+              Sign In to MedGuard
             </h2>
             <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
               Select your role below to launch the clinical decision cockpit or the patient care portal.
@@ -270,7 +270,7 @@ function LoginFormContent() {
             <div className="grid grid-cols-2 gap-2.5">
               <button
                 type="button"
-                onClick={() => executeLogin('doctor', 'sarah.almansoor@mediqx.clinic')}
+                onClick={() => executeLogin('doctor', 'sarah.almansoor@medguard.clinic')}
                 disabled={isLoading}
                 className="p-3 rounded-2xl border border-teal-200 dark:border-teal-900 bg-teal-50/80 hover:bg-teal-100/90 dark:bg-teal-950/40 dark:hover:bg-teal-900/50 text-left transition-all cursor-pointer group"
               >
@@ -499,7 +499,7 @@ function LoginFormContent() {
         </div>
 
         <div className="w-full max-w-md text-center py-2 text-[11px] text-slate-400 dark:text-slate-500">
-          MediQX Secure Access Gateway
+          MedGuard Secure Access Gateway
         </div>
       </div>
 
@@ -520,7 +520,7 @@ export default function LoginPage() {
         <div className="min-h-screen w-full flex items-center justify-center bg-slate-50 dark:bg-[#090e17]">
           <div className="flex items-center gap-3 text-slate-500">
             <Loader2 className="w-6 h-6 animate-spin text-teal-600" />
-            <span className="text-sm font-semibold">Loading MediQX Authentication...</span>
+            <span className="text-sm font-semibold">Loading MedGuard Authentication...</span>
           </div>
         </div>
       }

@@ -1,4 +1,4 @@
-// MediQX Prescription Service
+// MedGuard Prescription Service
 // Manages prescription orders, approvals, modifications, and clinical history.
 // Mirrors FastAPI endpoints: GET /api/v1/prescriptions, POST /api/v1/prescriptions
 

@@ -1,4 +1,4 @@
-// MediQX Unified Type Definitions
+// MedGuard Unified Type Definitions
 // Defines core interfaces for Patient, Medication, RiskAlert, RiskAnalysis, Prescription, Notification, and User.
 
 export type RiskLevel = 'LOW' | 'MODERATE' | 'HIGH';

@@ -1,4 +1,4 @@
-// MediQX Medication Service
+// MedGuard Medication Service
 // Handles medication regimens, schedules, and administration logging.
 // Supports both clinician and patient/caregiver views.
 

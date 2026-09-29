@@ -68,7 +68,7 @@ export function ForgotPasswordModal({
                 Password Recovery
               </h3>
               <p className="text-[11px] text-slate-500 dark:text-slate-400">
-                MediQX Clinical Identity Verification
+                MedGuard Clinical Identity Verification
               </p>
             </div>
           </div>
@@ -129,7 +129,7 @@ export function ForgotPasswordModal({
                   <input
                     type="email"
                     required
-                    placeholder="e.g. sarah.almansoor@mediqx.clinic"
+                    placeholder="e.g. sarah.almansoor@medguard.clinic"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className="w-full text-xs pl-8 pr-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 focus:outline-hidden focus:border-teal-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500"

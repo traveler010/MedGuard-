@@ -225,7 +225,7 @@ export function MedicineDetailDrawer({
         {/* Drawer Footer */}
         <div className="p-5 bg-slate-50 dark:bg-slate-800/80 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
           <span className="text-xs text-slate-500 dark:text-slate-400 font-semibold">
-            MediQX Patient Care Assistant
+            MedGuard Patient Care Assistant
           </span>
           <button
             onClick={onClose}

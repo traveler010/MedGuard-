@@ -1,4 +1,4 @@
-// MediQX usePatients Hook
+// MedGuard usePatients Hook
 // Consumes patientService to provide reactive patient panel data.
 
 import { useState, useEffect, useCallback } from 'react';

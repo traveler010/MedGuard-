@@ -1,4 +1,4 @@
-// MediQX useMedicationSchedule Hook
+// MedGuard useMedicationSchedule Hook
 // Powers patient/caregiver today's schedule view with mark-as-taken and undo functionality.
 
 import { useState, useEffect, useCallback } from 'react';

@@ -59,7 +59,7 @@ export function Navbar({
             <div>
               <div className="flex items-center gap-2">
                 <span className="font-extrabold text-xl tracking-tight text-slate-900 dark:text-white" suppressHydrationWarning>
-                  MEDI<span className="text-teal-600 dark:text-teal-400">QX</span>
+                  Med<span className="text-teal-600 dark:text-teal-400">Guard</span>
                 </span>
                 <span className="inline-flex items-center gap-1 text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-teal-50 dark:bg-teal-950/60 text-teal-700 dark:text-teal-300 border border-teal-200/70 dark:border-teal-800/60">
                   <Sparkles className="w-3 h-3 text-teal-600 dark:text-teal-400" /> AI Assistant

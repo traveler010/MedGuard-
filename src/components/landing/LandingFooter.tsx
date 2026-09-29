@@ -106,11 +106,11 @@ export function LandingFooter() {
               </li>
               <li className="pt-1 flex items-center gap-1.5 text-slate-600 dark:text-slate-400">
                 <Mail className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
-                <span>clinical@mediqx.health</span>
+                <span>clinical@medguard.health</span>
               </li>
               <li className="flex items-center gap-1.5 text-slate-600 dark:text-slate-400">
                 <Phone className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
-                <span>+1 (800) 555-MEDIQX</span>
+                <span>+1 (800) 555-MEDGUARD</span>
               </li>
             </ul>
           </div>
@@ -120,12 +120,12 @@ export function LandingFooter() {
         {/* Medical Disclaimer Row */}
         <div className="pt-8 space-y-3">
           <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800 text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
-            <strong className="text-slate-700 dark:text-slate-300">Official Medical Disclaimer:</strong> MediQX is an algorithmic clinical decision-support application built for informational and educational demonstrations. It is not intended to provide definitive medical diagnosis or replace personalized clinical judgment by licensed medical practitioners. In case of acute medical emergencies, always contact emergency medical services (911) immediately.
+            <strong className="text-slate-700 dark:text-slate-300">Official Medical Disclaimer:</strong> MedGuard is an algorithmic clinical decision-support application built for informational and educational demonstrations. It is not intended to provide definitive medical diagnosis or replace personalized clinical judgment by licensed medical practitioners. In case of acute medical emergencies, always contact emergency medical services (911) immediately.
           </div>
 
           <div className="flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-slate-400 dark:text-slate-500 pt-2">
             <div>
-              © 2026 MediQX HealthTech. All rights reserved.
+              © 2026 MedGuard HealthTech. All rights reserved.
             </div>
             <div className="flex items-center gap-4">
               <span className="hover:text-slate-600 dark:hover:text-slate-300 cursor-pointer">Terms of Service</span>

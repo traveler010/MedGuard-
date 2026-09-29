@@ -47,6 +47,8 @@ export interface DoctorPatientDirectoryItem {
   attentionReason?: string;
   lastVisit: string;
   nextAppointment?: string;
+  medications?: string[];
+  primaryMedicine?: string;
 }
 
 export interface ClinicMedicationTrackerItem {
@@ -469,6 +471,8 @@ export const DOCTOR_PATIENT_DIRECTORY: DoctorPatientDirectoryItem[] = [
     attentionReason: "New symptom intake submitted",
     lastVisit: "Sep 18, 2026",
     nextAppointment: "Today, 10:15 AM",
+    medications: ["Warfarin 5mg", "Metoprolol 50mg", "Lisinopril 10mg"],
+    primaryMedicine: "Warfarin 5mg",
   },
   {
     id: "pat-2",
@@ -482,6 +486,8 @@ export const DOCTOR_PATIENT_DIRECTORY: DoctorPatientDirectoryItem[] = [
     attentionReason: "Missed 2 scheduled medicines",
     lastVisit: "Sep 10, 2026",
     nextAppointment: "Today, 11:30 AM",
+    medications: ["Metformin 1000mg", "Glipizide 5mg", "Gabapentin 300mg", "Atorvastatin 20mg", "Lisinopril 20mg"],
+    primaryMedicine: "Metformin 1000mg",
   },
   {
     id: "pat-3",
@@ -494,6 +500,8 @@ export const DOCTOR_PATIENT_DIRECTORY: DoctorPatientDirectoryItem[] = [
     attentionNeeded: false,
     lastVisit: "Aug 12, 2026",
     nextAppointment: "Today, 09:00 AM",
+    medications: ["Atorvastatin 10mg"],
+    primaryMedicine: "Atorvastatin 10mg",
   },
   {
     id: "pat-4",
@@ -507,6 +515,8 @@ export const DOCTOR_PATIENT_DIRECTORY: DoctorPatientDirectoryItem[] = [
     attentionReason: "eGFR decline on metabolic panel",
     lastVisit: "Sep 02, 2026",
     nextAppointment: "Sep 29, 2026",
+    medications: ["Acetaminophen 500mg", "Amlodipine 5mg", "Calcitriol 0.25mcg", "Sodium Bicarbonate 650mg"],
+    primaryMedicine: "Acetaminophen 500mg",
   },
   {
     id: "pat-5",
@@ -519,6 +529,8 @@ export const DOCTOR_PATIENT_DIRECTORY: DoctorPatientDirectoryItem[] = [
     attentionNeeded: false,
     lastVisit: "Aug 20, 2026",
     nextAppointment: "Today, 03:30 PM",
+    medications: ["Telmisartan 40mg", "Hydrochlorothiazide 12.5mg"],
+    primaryMedicine: "Telmisartan 40mg",
   },
   {
     id: "pat-6",
@@ -532,6 +544,8 @@ export const DOCTOR_PATIENT_DIRECTORY: DoctorPatientDirectoryItem[] = [
     attentionReason: "Missed morning antihypertensive",
     lastVisit: "Aug 28, 2026",
     nextAppointment: "Today, 04:45 PM",
+    medications: ["Aspirin 81mg", "Clopidogrel 75mg", "Rosuvastatin 20mg"],
+    primaryMedicine: "Aspirin 81mg",
   },
 ];
 
@@ -1290,76 +1304,71 @@ export function getPatientWorkspace(patientId: string): PatientWorkspaceData {
     return PATIENT_WORKSPACE_STORE[patientId];
   }
 
-  // Fallback generator for other patients
-  const found = DOCTOR_PATIENT_DIRECTORY.find((p) => p.id === patientId) || DOCTOR_PATIENT_DIRECTORY[0];
+  // Look up patient in persistent storage first, then fallback to built-ins
+  const allPatients = getStoredDoctorPatients();
+  const found =
+    allPatients.find((p) => p.id === patientId) ||
+    DOCTOR_PATIENT_DIRECTORY.find((p) => p.id === patientId) ||
+    DOCTOR_PATIENT_DIRECTORY[0];
+
+  const medList: PatientCurrentMedicine[] =
+    found.medications && found.medications.length > 0
+      ? found.medications.map((m, idx) => ({
+          id: `med-${patientId}-${idx + 1}`,
+          name: m,
+          dose: "Standard dose",
+          frequency: "Once daily",
+          scheduledTime: "08:00 AM",
+          status: "○ Upcoming",
+          statusType: "upcoming",
+        }))
+      : found.primaryMedicine
+      ? [
+          {
+            id: `med-${patientId}-1`,
+            name: found.primaryMedicine,
+            dose: "Standard dose",
+            frequency: "Once daily",
+            scheduledTime: "08:00 AM",
+            status: "○ Upcoming",
+            statusType: "upcoming",
+          },
+        ]
+      : [
+          {
+            id: `med-${patientId}-def`,
+            name: "General Health / Maintenance",
+            dose: "Standard dose",
+            frequency: "Once daily",
+            scheduledTime: "08:00 AM",
+            status: "○ Upcoming",
+            statusType: "upcoming",
+          },
+        ];
 
   return {
     patient: found,
-    adherencePercentage: 86,
-    adherenceLabel: "Medication adherence: 86%",
-    currentMedicines: [
-      {
-        id: "m-f1",
-        name: "Blood Pressure Medicine",
-        dose: "75 mg",
-        frequency: "Once daily",
-        scheduledTime: "08:00 AM",
-        status: "✓ Taken",
-        statusType: "taken",
-      },
-      {
-        id: "m-f2",
-        name: "Cardiovascular Support Tablet",
-        dose: "10 mg",
-        frequency: "Twice daily",
-        scheduledTime: "01:00 PM",
-        status: "⚠ Missed",
-        statusType: "missed",
-      },
-      {
-        id: "m-f3",
-        name: "Evening Maintenance Tablet",
-        dose: "20 mg",
-        frequency: "Once daily",
-        scheduledTime: "08:00 PM",
-        status: "○ Upcoming",
-        statusType: "upcoming",
-      },
-    ],
+    adherencePercentage: 100,
+    adherenceLabel: "Medication adherence: 100%",
+    currentMedicines: medList,
     history: [
       {
-        id: "hf-1",
+        id: `hf-${patientId}-1`,
         timelineLabel: "Today",
-        medicineName: "Blood Pressure Medicine",
-        dose: "75 mg",
-        status: "Taken",
-        statusSymbol: "✓",
-      },
-      {
-        id: "hf-2",
-        timelineLabel: "Yesterday",
-        medicineName: "Cardiovascular Support Tablet",
-        dose: "10 mg",
-        status: "Missed",
-        statusSymbol: "⚠",
-      },
-      {
-        id: "hf-3",
-        timelineLabel: "2 days ago",
-        medicineName: "Evening Maintenance Tablet",
-        dose: "20 mg",
+        medicineName: found.primaryMedicine || (found.medications && found.medications[0]) || "Clinical profile registered",
+        dose: "Standard",
         status: "Taken",
         statusSymbol: "✓",
       },
     ],
     vitals: {
-      bloodPressure: "124/82 mmHg",
-      heartRate: "70 bpm",
+      bloodPressure: "120/80 mmHg",
+      heartRate: "72 bpm",
       haemoglobin: "13.6 g/dL",
       bloodCount: "Normal",
-      eGFR: "75 mL/min",
+      eGFR: "85 mL/min",
     },
-    recentClinicalNote: "Patient general checkup routine. No acute contraindications reported.",
+    recentClinicalNote: `Clinical profile for ${found.name}. Active medication regimen tracked.`,
   };
 }
 
@@ -1463,4 +1472,146 @@ export function deleteStoredPatientMedicine(patientId: string, medicineId: strin
     console.error("Failed to delete patient medicine", e);
   }
 }
+
+export const DOCTOR_PATIENTS_STORAGE_KEY = "medguard_doctor_patients";
+
+export function getStoredDoctorPatients(): DoctorPatientDirectoryItem[] {
+  if (typeof window === "undefined") {
+    return DOCTOR_PATIENT_DIRECTORY;
+  }
+  try {
+    const raw = localStorage.getItem(DOCTOR_PATIENTS_STORAGE_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        // Merge with built-in patients so built-ins are always present
+        const storedIds = new Set(parsed.map((p: DoctorPatientDirectoryItem) => p.id));
+        const missingBuiltins = DOCTOR_PATIENT_DIRECTORY.filter((p) => !storedIds.has(p.id));
+        return [...parsed, ...missingBuiltins];
+      }
+    }
+  } catch (e) {
+    console.warn("Failed to retrieve stored patients:", e);
+  }
+  return DOCTOR_PATIENT_DIRECTORY;
+}
+
+export function saveNewDoctorPatient(
+  newPatient: DoctorPatientDirectoryItem,
+  extra?: {
+    bloodGroup?: string;
+    emergencyContact?: string;
+    phone?: string;
+    email?: string;
+    currentMedications?: string;
+    allergies?: string;
+    notes?: string;
+    vitals?: {
+      bloodPressure?: string;
+      heartRate?: string;
+      haemoglobin?: string;
+      bloodCount?: string;
+      eGFR?: string;
+    };
+  }
+): void {
+  // Update in-memory directory
+  const existingIdx = DOCTOR_PATIENT_DIRECTORY.findIndex((p) => p.id === newPatient.id);
+  if (existingIdx >= 0) {
+    DOCTOR_PATIENT_DIRECTORY[existingIdx] = newPatient;
+  } else {
+    DOCTOR_PATIENT_DIRECTORY.unshift(newPatient);
+  }
+
+  // Update in-memory workspace store
+  const parsedMedicines: PatientCurrentMedicine[] = [];
+  if (extra?.currentMedications && extra.currentMedications.trim()) {
+    const medNames = extra.currentMedications
+      .split(/[\n,;]+/)
+      .map((s) => s.trim())
+      .filter(Boolean);
+    medNames.forEach((medName, idx) => {
+      parsedMedicines.push({
+        id: `med-${newPatient.id}-${idx + 1}`,
+        name: medName,
+        dose: "As prescribed",
+        frequency: "Once daily",
+        scheduledTime: "08:00 AM",
+        status: "○ Upcoming",
+        statusType: "upcoming",
+      });
+    });
+  }
+
+  PATIENT_WORKSPACE_STORE[newPatient.id] = {
+    patient: newPatient,
+    adherencePercentage: 100,
+    adherenceLabel: "Medication adherence: 100% (New intake)",
+    currentMedicines:
+      parsedMedicines.length > 0
+        ? parsedMedicines
+        : [
+            {
+              id: `med-${newPatient.id}-default`,
+              name: "General Health / Maintenance",
+              dose: "Standard",
+              frequency: "Once daily",
+              scheduledTime: "08:00 AM",
+              status: "○ Upcoming",
+              statusType: "upcoming",
+            },
+          ],
+    history: [
+      {
+        id: `h-${newPatient.id}-init`,
+        timelineLabel: "Today",
+        medicineName: "Patient registered in MedGuard Clinical Portal",
+        dose: "-",
+        status: "Taken",
+        statusSymbol: "✓",
+      },
+    ],
+    vitals: {
+      bloodPressure: extra?.vitals?.bloodPressure || "120/80 mmHg",
+      heartRate: extra?.vitals?.heartRate || "72 bpm",
+      haemoglobin: extra?.vitals?.haemoglobin || "13.5 g/dL",
+      bloodCount: extra?.vitals?.bloodCount || "Normal",
+      eGFR: extra?.vitals?.eGFR || "85 mL/min",
+    },
+    recentClinicalNote:
+      extra?.notes || extra?.allergies
+        ? `Intake Notes: ${extra.notes || "None"}. Allergies: ${extra.allergies || "NKDA"}. Emergency Contact: ${extra?.emergencyContact || "N/A"}.`
+        : "Newly registered clinical patient profile. Comprehensive baseline evaluation scheduled.",
+  };
+
+  // Update localStorage and trigger update event for reactive UI
+  if (typeof window !== "undefined") {
+    try {
+      const stored = getStoredDoctorPatients();
+      const sIndex = stored.findIndex((p) => p.id === newPatient.id);
+      let updatedList: DoctorPatientDirectoryItem[];
+      if (sIndex >= 0) {
+        updatedList = [...stored];
+        updatedList[sIndex] = newPatient;
+      } else {
+        updatedList = [newPatient, ...stored];
+      }
+      localStorage.setItem(DOCTOR_PATIENTS_STORAGE_KEY, JSON.stringify(updatedList));
+
+      if (parsedMedicines.length > 0) {
+        localStorage.setItem(
+          `${PATIENT_MEDICINES_STORAGE_KEY}_${newPatient.id}`,
+          JSON.stringify(parsedMedicines)
+        );
+      }
+
+      window.dispatchEvent(
+        new CustomEvent("medguard_patients_updated", { detail: newPatient })
+      );
+    } catch (e) {
+      console.warn("Failed to persist patient in localStorage:", e);
+    }
+  }
+}
+
 

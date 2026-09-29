@@ -26,7 +26,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "MediQX • AI Polypharmacy Risk Assistant",
+  title: "MedGuard • AI Polypharmacy Risk Assistant",
   description:
     "AI-powered Polypharmacy Risk Assistant helping clinicians detect drug-drug interactions, anticholinergic burden, and prescribing cascades, while empowering caregivers with simplified medication schedules.",
 };
@@ -48,7 +48,7 @@ export default function RootLayout({
             __html: `
               (function() {
                 try {
-                  var saved = localStorage.getItem('mediqx_theme');
+                  var saved = localStorage.getItem('medguard_theme');
                   var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
                   if (saved === 'dark' || (!saved && prefersDark)) {
                     document.documentElement.classList.add('dark');

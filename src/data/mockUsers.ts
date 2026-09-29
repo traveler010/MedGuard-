@@ -1,16 +1,16 @@
-// MediQX Mock Users Data
+// MedGuard Mock Users Data
 import { User } from '@/types';
 
 export const MOCK_USERS: User[] = [
   {
     id: 'user-doc-1',
     name: 'Dr. Priya Sharma, MD',
-    email: 'sharma.md@mediqx-health.org',
+    email: 'sharma.md@medguard-health.org',
     role: 'DOCTOR',
     avatar: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=200',
     specialty: 'Internal Medicine & Geriatric Pharmacotherapy',
     licenseNumber: 'MD-849201-NY',
-    clinicName: 'MediQX Comprehensive Geriatric Clinic',
+    clinicName: 'MedGuard Comprehensive Geriatric Clinic',
     phone: '+1 (555) 234-8900',
   },
   {

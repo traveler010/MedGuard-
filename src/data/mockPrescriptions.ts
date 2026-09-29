@@ -1,4 +1,4 @@
-// MediQX Mock Prescriptions Data
+// MedGuard Mock Prescriptions Data
 import { Prescription } from '@/types';
 
 export const MOCK_PRESCRIPTIONS: Prescription[] = [

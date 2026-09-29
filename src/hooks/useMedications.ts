@@ -1,4 +1,4 @@
-// MediQX useMedications Hook
+// MedGuard useMedications Hook
 // Loads patient medications via medicationService.
 
 import { useState, useEffect, useCallback } from 'react';

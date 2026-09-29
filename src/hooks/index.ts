@@ -1,4 +1,4 @@
-// MediQX Central Hooks Export
+// MedGuard Central Hooks Export
 export * from './usePatients';
 export * from './usePatient';
 export * from './useMedications';

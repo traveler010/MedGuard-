@@ -1,4 +1,4 @@
-// MediQX Mock Medication Schedule Data
+// MedGuard Mock Medication Schedule Data
 import { MedicationScheduleItem } from '@/types';
 
 export const MOCK_SCHEDULE_ITEMS: MedicationScheduleItem[] = [

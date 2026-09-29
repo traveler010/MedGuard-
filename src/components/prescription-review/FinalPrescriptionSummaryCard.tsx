@@ -207,7 +207,7 @@ export function FinalPrescriptionSummaryCard({
             >
               {overallRisk} Risk
             </p>
-            <p className="text-slate-500 dark:text-slate-400 text-[11px]">MediQX Safety Engine v2.4</p>
+            <p className="text-slate-500 dark:text-slate-400 text-[11px]">MedGuard Safety Engine v2.4</p>
           </div>
         </div>
 

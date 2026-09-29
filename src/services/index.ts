@@ -1,4 +1,4 @@
-// MediQX Central Service Layer
+// MedGuard Central Service Layer
 // Clean service functions ready for future FastAPI integration.
 // Replaces hardcoded mock imports in UI components with async, decoupleable service contracts.
 

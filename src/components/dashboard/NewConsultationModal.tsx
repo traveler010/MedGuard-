@@ -71,7 +71,7 @@ export function NewConsultationModal({
                 Initiate Clinical Consultation
               </h3>
               <p className="text-xs text-slate-500">
-                Select patient and consultation objective for MediQX AI review.
+                Select patient and consultation objective for MedGuard AI review.
               </p>
             </div>
           </div>

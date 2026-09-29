@@ -1,5 +1,5 @@
-// MediQX Clinical Risk Analysis Service
-// Interfaces with the MediQX Pharmacological Inference Engine.
+// MedGuard Clinical Risk Analysis Service
+// Interfaces with the MedGuard Pharmacological Inference Engine.
 // Formulated to directly mirror FastAPI backend schema: POST /api/v1/risk-analysis
 
 import { RiskAnalysis, RiskAlert, ProposedMedicationInput } from '@/types';

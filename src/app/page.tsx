@@ -62,7 +62,7 @@ import {
   Home as HomeIcon,
 } from 'lucide-react';
 
-function MediQXAppContent() {
+function MedGuardAppContent() {
   const { showToast } = useToast();
 
   // Navigation View State: 'landing' or 'app'
@@ -352,7 +352,7 @@ function MediQXAppContent() {
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
               <span className="font-semibold text-slate-200">
-                MediQX Live Prototype Environment
+                MedGuard Live Prototype Environment
               </span>
               <span className="text-slate-400 hidden sm:inline">
                 • Fully interactive mock clinical data
@@ -618,7 +618,7 @@ function MediQXAppContent() {
           <footer className="border-t border-slate-200/80 dark:border-slate-800 bg-white dark:bg-[#090e17] py-6 mt-12 text-xs text-slate-500 dark:text-slate-400 text-center no-print">
             <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
               <div className="flex items-center gap-2">
-                <span className="font-extrabold text-slate-800 dark:text-white">MEDIQX</span>
+                <span className="font-extrabold text-slate-800 dark:text-white">MEDGUARD</span>
                 <span>• AI-Powered Polypharmacy Risk Assistant</span>
               </div>
               <button
@@ -671,7 +671,7 @@ function MediQXAppContent() {
 export default function Home() {
   return (
     <ToastProvider>
-      <MediQXAppContent />
+      <MedGuardAppContent />
     </ToastProvider>
   );
 }

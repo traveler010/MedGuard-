@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/Toast";
@@ -23,6 +23,10 @@ import {
 
 import { DoctorSidebar, NavItem } from "@/components/dashboard/DoctorSidebar";
 import { DoctorHeader } from "@/components/dashboard/DoctorHeader";
+import { QuickActions } from "@/components/dashboard/QuickActions";
+import { AddPatientModal } from "@/components/doctor/AddPatientModal";
+import { getStoredDoctorPatients } from "@/data/mockDoctorPortal";
+import { fetchDoctorPatients } from "@/services/patientService";
 import { DoctorConsultationInbox } from "@/components/doctor/DoctorConsultationInbox";
 import { DoctorAppointmentsView } from "@/components/doctor/DoctorAppointmentsView";
 import { DoctorMedicineTracker } from "@/components/doctor/DoctorMedicineTracker";
@@ -46,6 +50,7 @@ import {
   Heart,
   Droplets,
   ShieldAlert,
+  UserPlus,
 } from "lucide-react";
 
 export default function DoctorDashboardPage() {
@@ -56,6 +61,27 @@ export default function DoctorDashboardPage() {
   const [activeNav, setActiveNav] = useState<NavItem>("dashboard");
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
+  const [patientsList, setPatientsList] = useState<DoctorPatientDirectoryItem[]>(DOCTOR_PATIENT_DIRECTORY);
+  const [isAddPatientModalOpen, setIsAddPatientModalOpen] = useState(false);
+
+  useEffect(() => {
+    // Initial load from storage / backend
+    setPatientsList(getStoredDoctorPatients());
+    fetchDoctorPatients().then((data) => {
+      if (data && data.length > 0) {
+        setPatientsList(data);
+      }
+    });
+
+    const handleUpdate = () => {
+      setPatientsList(getStoredDoctorPatients());
+    };
+
+    window.addEventListener("medguard_patients_updated", handleUpdate);
+    return () => {
+      window.removeEventListener("medguard_patients_updated", handleUpdate);
+    };
+  }, []);
 
   // Quick Patient Search & Lookup
   const [searchQuery, setSearchQuery] = useState("");
@@ -65,23 +91,23 @@ export default function DoctorDashboardPage() {
 
   // Filtered patients for Quick Lookup
   const filteredPatients = useMemo(() => {
-    if (!searchQuery.trim()) return DOCTOR_PATIENT_DIRECTORY;
+    if (!searchQuery.trim()) return patientsList;
     const q = searchQuery.toLowerCase();
-    return DOCTOR_PATIENT_DIRECTORY.filter(
+    return patientsList.filter(
       (p) =>
         p.name.toLowerCase().includes(q) ||
         p.primaryCondition.toLowerCase().includes(q) ||
         p.id.toLowerCase().includes(q)
     );
-  }, [searchQuery]);
+  }, [patientsList, searchQuery]);
 
   // Selected patient details for quick modal
   const selectedPatient = useMemo(() => {
     if (!selectedPatientId) return null;
     return (
-      DOCTOR_PATIENT_DIRECTORY.find((p) => p.id === selectedPatientId) || null
+      patientsList.find((p) => p.id === selectedPatientId) || null
     );
-  }, [selectedPatientId]);
+  }, [patientsList, selectedPatientId]);
 
   const handleOpenPatient = (patientId: string) => {
     setSelectedPatientId(patientId);
@@ -201,6 +227,13 @@ export default function DoctorDashboardPage() {
                   What do you need to deal with today? Here are your scheduled appointments and priority patient updates.
                 </p>
               </div>
+
+              {/* Quick Actions Component */}
+              <QuickActions
+                onNewConsultation={() => router.push("/doctor/consultations")}
+                onAddPatient={() => setIsAddPatientModalOpen(true)}
+                onCheckDrugInteraction={() => router.push("/doctor/medicines")}
+              />
 
               {/* 4 COMPACT SUMMARY CARDS */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -479,8 +512,17 @@ export default function DoctorDashboardPage() {
                 </div>
 
                 <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    id="dashboard-tab-add-patient-btn"
+                    onClick={() => setIsAddPatientModalOpen(true)}
+                    className="px-3.5 py-1.5 rounded-xl bg-teal-600 hover:bg-teal-700 dark:bg-teal-500 dark:hover:bg-teal-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-xs cursor-pointer card-lift"
+                  >
+                    <UserPlus className="w-3.5 h-3.5" />
+                    <span>Add Patient</span>
+                  </button>
                   <span className="text-xs font-bold px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
-                    {DOCTOR_PATIENT_DIRECTORY.length} Registered Patients
+                    {patientsList.length} Registered Patients
                   </span>
                 </div>
               </div>
@@ -488,7 +530,7 @@ export default function DoctorDashboardPage() {
               {/* Patient List */}
               <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 overflow-hidden shadow-xs">
                 <div className="divide-y divide-slate-100 dark:divide-slate-800">
-                  {DOCTOR_PATIENT_DIRECTORY.map((p) => (
+                  {patientsList.map((p) => (
                     <div
                       key={p.id}
                       className="p-5 sm:p-6 hover:bg-slate-50/70 dark:hover:bg-slate-850/40 transition flex flex-col md:flex-row md:items-center justify-between gap-4"
@@ -518,9 +560,18 @@ export default function DoctorDashboardPage() {
                             </span>
                           </div>
 
-                          <p className="text-xs text-slate-500 dark:text-slate-400">
-                            {p.primaryCondition}
-                          </p>
+                          <div className="flex flex-wrap items-center gap-2 pt-0.5 text-xs text-slate-500 dark:text-slate-400">
+                            <span>{p.primaryCondition}</span>
+                            {(p.primaryMedicine || (p.medications && p.medications.length > 0)) && (
+                              <>
+                                <span>•</span>
+                                <span className="flex items-center gap-1 font-semibold text-teal-700 dark:text-teal-400">
+                                  <Pill className="w-3.5 h-3.5" />
+                                  <span>{p.primaryMedicine || p.medications?.join(", ")}</span>
+                                </span>
+                              </>
+                            )}
+                          </div>
 
                           {p.attentionNeeded && (
                             <p className="text-xs font-semibold text-rose-600 dark:text-rose-400 flex items-center gap-1.5 pt-0.5">
@@ -773,8 +824,14 @@ export default function DoctorDashboardPage() {
               </div>
               <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800">
                 <span className="text-slate-400 block mb-0.5">Active Medications</span>
-                <span className="font-bold text-slate-900 dark:text-white">
-                  {selectedPatient.activeMedsCount} Prescriptions
+                <span className="font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                  <Pill className="w-3.5 h-3.5 text-teal-600 shrink-0" />
+                  <span className="truncate">
+                    {selectedPatient.primaryMedicine ||
+                      (selectedPatient.medications && selectedPatient.medications.length > 0
+                        ? selectedPatient.medications.join(", ")
+                        : `${selectedPatient.activeMedsCount} Prescriptions`)}
+                  </span>
                 </span>
               </div>
               <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800">
@@ -812,6 +869,18 @@ export default function DoctorDashboardPage() {
           </div>
         </div>
       )}
+
+      {/* Add Patient Modal */}
+      <AddPatientModal
+        isOpen={isAddPatientModalOpen}
+        onClose={() => setIsAddPatientModalOpen(false)}
+        onPatientAdded={(newPatient) => {
+          setPatientsList((prev) => [newPatient, ...prev.filter((p) => p.id !== newPatient.id)]);
+          fetchDoctorPatients().then((data) => {
+            if (data && data.length > 0) setPatientsList(data);
+          });
+        }}
+      />
     </div>
   );
 }

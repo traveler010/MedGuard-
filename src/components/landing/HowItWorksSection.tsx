@@ -20,7 +20,7 @@ export function HowItWorksSection() {
       title: 'Add Patient',
       short: 'Input patient demographics, renal markers, and clinical diagnoses.',
       explanation:
-        'Easily import or enter patient age, eGFR, serum creatinine, electrolytes, and current conditions. MediQX establishes a baseline physiological profile to assess organ clearance capacity.',
+        'Easily import or enter patient age, eGFR, serum creatinine, electrolytes, and current conditions. MedGuard establishes a baseline physiological profile to assess organ clearance capacity.',
       icon: UserPlus,
       previewTitle: 'Patient Intake & Baseline Renal Function',
       previewDetails: [
@@ -50,7 +50,7 @@ export function HowItWorksSection() {
       title: 'Analyze Risk',
       short: 'Detect drug-drug collisions, anticholinergic burden, and cascades.',
       explanation:
-        'MediQX computes a 0-100 Polypharmacy Risk Score, screens CYP450 enzyme competition, highlights Beers Criteria 2023 violations, and flags prescribing cascades.',
+        'MedGuard computes a 0-100 Polypharmacy Risk Score, screens CYP450 enzyme competition, highlights Beers Criteria 2023 violations, and flags prescribing cascades.',
       icon: AlertTriangle,
       previewTitle: 'Real-Time Polypharmacy Risk Engine',
       previewDetails: [
@@ -88,7 +88,7 @@ export function HowItWorksSection() {
             <span>Intuitive Clinical Workflow</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-            How MediQX Works
+            How MedGuard Works
           </h2>
           <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 mt-2">
             From patient intake to actionable deprescribing in four structured, evidence-backed steps.
@@ -171,7 +171,7 @@ export function HowItWorksSection() {
                         {steps[activeStep].previewTitle}
                       </h4>
                       <p className="text-[11px] text-slate-400 font-mono">
-                        MediQX Decision Engine State
+                        MedGuard Decision Engine State
                       </p>
                     </div>
                   </div>

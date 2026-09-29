@@ -51,7 +51,7 @@ export function HeroSection({
             </h1>
 
             <p className="text-base sm:text-lg text-slate-600 dark:text-slate-400 leading-relaxed max-w-xl mx-auto lg:mx-0">
-              MediQX helps healthcare professionals identify potential medication risks before they become problems. Powered by clinical pharmacokinetics, Beers Criteria, and actionable deprescribing recommendations.
+              MedGuard helps healthcare professionals identify potential medication risks before they become problems. Powered by clinical pharmacokinetics, Beers Criteria, and actionable deprescribing recommendations.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5 pt-2">
@@ -68,7 +68,7 @@ export function HeroSection({
                 onClick={onExploreMedGuard}
                 className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold text-sm border border-slate-200 dark:border-slate-800 transition-all shadow-2xs cursor-pointer flex items-center justify-center gap-2"
               >
-                <span>Explore MediQX</span>
+                <span>Explore MedGuard</span>
                 <ChevronRight className="w-4 h-4 text-slate-400" />
               </button>
             </div>

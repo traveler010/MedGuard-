@@ -142,7 +142,7 @@ export const INITIAL_NOTIFICATIONS: AppNotification[] = [
     role: "doctor",
     category: "new_high_risk_review",
     title: "New high-risk review",
-    message: "Raj Kumar (68y): Critical Warfarin + NSAID bleeding interaction flagged by MediQX Safety Engine.",
+    message: "Raj Kumar (68y): Critical Warfarin + NSAID bleeding interaction flagged by MedGuard Safety Engine.",
     timestamp: "10 mins ago",
     isRead: false,
     severity: "HIGH",

@@ -1,15 +1,18 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/Toast";
 import {
   DOCTOR_PATIENT_DIRECTORY,
   DoctorPatientDirectoryItem,
+  getStoredDoctorPatients,
 } from "@/data/mockDoctorPortal";
+import { fetchDoctorPatients } from "@/services/patientService";
 import { DoctorSidebar } from "@/components/dashboard/DoctorSidebar";
 import { DoctorHeader } from "@/components/dashboard/DoctorHeader";
+import { AddPatientModal } from "@/components/doctor/AddPatientModal";
 import {
   Search,
   Filter,
@@ -18,6 +21,7 @@ import {
   Activity,
   ChevronRight,
   User,
+  UserPlus,
   AlertTriangle,
 } from "lucide-react";
 
@@ -29,9 +33,30 @@ export default function DoctorPatientsPage() {
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedFilter, setSelectedFilter] = useState<"ALL" | "ATTENTION" | "HIGH_RISK" | "STABLE">("ALL");
+  const [patientsList, setPatientsList] = useState<DoctorPatientDirectoryItem[]>(DOCTOR_PATIENT_DIRECTORY);
+  const [isAddPatientModalOpen, setIsAddPatientModalOpen] = useState(false);
+
+  useEffect(() => {
+    // Initial load from storage / backend
+    setPatientsList(getStoredDoctorPatients());
+    fetchDoctorPatients().then((data) => {
+      if (data && data.length > 0) {
+        setPatientsList(data);
+      }
+    });
+
+    const handleUpdate = () => {
+      setPatientsList(getStoredDoctorPatients());
+    };
+
+    window.addEventListener("medguard_patients_updated", handleUpdate);
+    return () => {
+      window.removeEventListener("medguard_patients_updated", handleUpdate);
+    };
+  }, []);
 
   const filteredPatients = useMemo(() => {
-    return DOCTOR_PATIENT_DIRECTORY.filter((p) => {
+    return patientsList.filter((p) => {
       const q = searchQuery.toLowerCase().trim();
       const matchesSearch =
         !q ||
@@ -50,7 +75,7 @@ export default function DoctorPatientsPage() {
 
       return matchesSearch && matchesFilter;
     });
-  }, [searchQuery, selectedFilter]);
+  }, [patientsList, searchQuery, selectedFilter]);
 
   const handleLogout = () => {
     showToast("Signed Out", "Doctor session ended.", "info");
@@ -103,9 +128,21 @@ export default function DoctorPatientsPage() {
               </p>
             </div>
 
-            <span className="text-xs font-bold px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 self-start sm:self-auto">
-              {filteredPatients.length} of {DOCTOR_PATIENT_DIRECTORY.length} Patients
-            </span>
+            <div className="flex items-center gap-3">
+              <button
+                type="button"
+                id="btn-add-patient-page"
+                onClick={() => setIsAddPatientModalOpen(true)}
+                className="px-4 py-2 rounded-2xl bg-teal-600 hover:bg-teal-700 dark:bg-teal-500 dark:hover:bg-teal-600 text-white font-extrabold text-xs sm:text-sm flex items-center gap-2 shadow-xs hover:shadow-md transition-all cursor-pointer card-lift"
+              >
+                <UserPlus className="w-4 h-4" />
+                <span>Add Patient</span>
+              </button>
+
+              <span className="text-xs font-bold px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 self-start sm:self-auto">
+                {filteredPatients.length} of {patientsList.length} Patients
+              </span>
+            </div>
           </div>
 
           {/* Search Patients & Filter Patients Bar */}
@@ -216,9 +253,14 @@ export default function DoctorPatientsPage() {
 
                       <span>•</span>
 
-                      <span className="flex items-center gap-1.5">
-                        <Pill className="w-3.5 h-3.5 text-slate-400" />
-                        <span>{medicationStatusText}</span>
+                      <span className="flex items-center gap-1.5 font-semibold text-teal-700 dark:text-teal-400">
+                        <Pill className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
+                        <span>
+                          {patient.primaryMedicine ||
+                            (patient.medications && patient.medications.length > 0
+                              ? patient.medications.join(", ")
+                              : medicationStatusText)}
+                        </span>
                       </span>
                     </div>
                   </div>
@@ -256,6 +298,18 @@ export default function DoctorPatientsPage() {
           </div>
         </main>
       </div>
+
+      {/* Add Patient Modal */}
+      <AddPatientModal
+        isOpen={isAddPatientModalOpen}
+        onClose={() => setIsAddPatientModalOpen(false)}
+        onPatientAdded={(newPatient) => {
+          setPatientsList((prev) => [newPatient, ...prev.filter((p) => p.id !== newPatient.id)]);
+          fetchDoctorPatients().then((data) => {
+            if (data && data.length > 0) setPatientsList(data);
+          });
+        }}
+      />
     </div>
   );
 }

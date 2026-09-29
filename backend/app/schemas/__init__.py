@@ -47,11 +47,18 @@ from app.schemas.dashboard import (
     PatientInfoSummary,
 )
 
+from app.schemas.patient import (
+    PatientCreateRequest,
+    PatientResponse,
+)
+
 __all__ = [
     "UserRegisterRequest",
     "UserLoginRequest",
     "UserResponse",
     "TokenResponse",
+    "PatientCreateRequest",
+    "PatientResponse",
     "ScheduleCreate",
     "ScheduleResponse",
     "MedicationCreate",

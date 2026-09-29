@@ -1,4 +1,4 @@
-// MediQX useCurrentUser Hook
+// MedGuard useCurrentUser Hook
 // Provides the authenticated or active user context.
 
 import { useState, useEffect } from 'react';

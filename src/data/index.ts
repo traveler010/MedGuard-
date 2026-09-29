@@ -1,4 +1,4 @@
-// MediQX Central Data Export
+// MedGuard Central Data Export
 export * from './mockPatients';
 export * from './mockNotifications';
 export * from './mockUsers';

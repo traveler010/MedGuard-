@@ -349,7 +349,7 @@ export function Step4ProposedMedicine({
               <ShieldCheck className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-sm font-bold text-white">MediQX Safety Engine</h3>
+              <h3 className="text-sm font-bold text-white">MedGuard Safety Engine</h3>
               <p className="text-[11px] text-slate-400">Real-time multi-dimensional screening</p>
             </div>
           </div>

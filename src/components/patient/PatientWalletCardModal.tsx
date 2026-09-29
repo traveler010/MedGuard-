@@ -79,7 +79,7 @@ export function PatientWalletCardModal({
                 </span>
               </div>
               <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 font-bold">
-                MEDIQX VERIFIED
+                MEDGUARD VERIFIED
               </span>
             </div>
 

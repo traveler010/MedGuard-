@@ -1,4 +1,4 @@
-// MediQX User Profile & Authentication Service
+// MedGuard User Profile & Authentication Service
 // Ready to connect to FastAPI JWT/OAuth endpoints: /api/v1/auth/me
 
 import { User } from '@/types';
